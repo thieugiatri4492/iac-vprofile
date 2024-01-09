@@ -81,6 +81,12 @@ jobs:
        - name: Install Ingress controller
          if: steps.apply.outcome == 'success' && steps.getconfig.outcome == 'success'
          run: kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.3/deploy/static/provider/aws/deploy.yaml
+       
+       - name: Install Argo CD
+         if: steps.apply.outcome == 'success' && steps.getconfig.outcome == 'success'
+         run: | 
+           kubectl create namespace argocd 
+           kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/core-install.yaml
 
 
 
